@@ -1,0 +1,25 @@
+name: TowerEconomy
+version: 1
+author: MisterRedCraft
+main: be.misterredcraft.towereconomy.Main
+api-version: 1.12.2
+commands:
+  money:
+    permission: economy.basic
+    usage: /money
+    description: Affiche la money qu'il vous reste.
+  moneyedit: 
+    permission: economy.moderate
+    usage: /moneyedit <add|remove|set|check> <joueur> [montant]
+    description: Ajoute à/enlève de/met/affiche la money d'un joueur.
+  shop:
+    permission: economy.basic
+    usage: /shop
+    description: Ouvre le shop.
+  editshop: 
+   permission: economy.moderate
+   usage: /editshop
+   description: Permet d'éditer le shop.
+  abouttowereconomy:
+    permission: economy.basic
+    description: Donne des détails sur le plugin.
