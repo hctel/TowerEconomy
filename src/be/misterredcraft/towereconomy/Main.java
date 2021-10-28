@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import be.misterredcraft.towereconomy.Listeners;
 import be.misterredcraft.towereconomy.commands.Commands;
 
+//I know the main class of a plugin shouldn't be named "Main". I was dumb and very drunk, don't blame me x)
 public class Main extends JavaPlugin {
 	public static Plugin plugin;
 	private Connection connection;
@@ -25,20 +26,31 @@ public class Main extends JavaPlugin {
 	private static Statement statement;	
 	@Override
 	public void onEnable() {
-		host = "localhost";
-		port = 3306;
-		database = "TowerEconomy";
-		username = "root";
-		password = "1234";
-		System.out.println("[TowerEconomy] TowerEconomy v1 par MisterRedCraft. En cours de développement");
+		/*
+		* SQL Credentials
+		*/
+		host = "localhost"; //test value
+		port = 3306; //test value
+		database = "TowerEconomy"; //test value
+		username = "root"; //test value
+		password = "1234"; //test value
+		
+		System.out.println("[TowerEconomy] TowerEconomy v1 par MisterRedCraft. En cours de dÃ©veloppement");
 		System.out.println("[TowerEconomy] Plugin ident: TowerEconomy-v1-dev01-b1_mV1122");
+		
+		/*
+		* Registering commands and listeners
+		*/
 		registerEvents(this, new Listeners());
 		getCommand("money").setExecutor(new Commands());
 		getCommand("moneyedit").setExecutor(new Commands());
 		getCommand("shop").setExecutor(new Commands());
 		getCommand("editshop").setExecutor(new Commands());
 		getCommand("abouttowereconomy").setExecutor(new Commands());
-		//plugin = this;
+		
+		/*
+		* Opening SQL connection
+		*/
 		try {     
             openConnection();
             statement = connection.createStatement();
@@ -70,18 +82,10 @@ public class Main extends JavaPlugin {
 }
 	public static void checkPlayerExisting(String player) throws SQLException, ClassNotFoundException {
 		System.out.println("Checking if user exists in TowerEconomy database");
-		ResultSet result = statement.executeQuery("SELECT * FROM TowerManiaCoinSystem WHERE playerUUID = '" + player + "';");
-		/*List<String> inDatabasePlayer = new ArrayList<String>();
-		while (result.next()) {
-		    String name = result.getString("playerUUID");
-		    inDatabasePlayer.add(name);
-		}
-		if(!(Arrays.asList(inDatabasePlayer).contains(player))) {
-			statement.execute("INSERT INTO TowerManiaCoinSystem (PLAYERUUID, COINS) VALUES ('"+player+"', 500);");
-			}*/
+		ResultSet result = statement.executeQuery("SELECT * FROM TowerManiaCoinSystem WHERE playerUUID = '" + player + "';"); //Querying player's UUID in database
 		System.out.println(result.next());
-		if(result.next() == false) {
-			statement.execute("INSERT INTO TowerManiaCoinSystem (PLAYERUUID, COINS) VALUES ('"+player+"', 500);");
+		if(!result.next()) { //if uuid not found
+			statement.execute("INSERT INTO TowerManiaCoinSystem (PLAYERUUID, COINS) VALUES ('"+player+"', 500);"); //Creating player's entry if non existent
 		}
 	
 	}
