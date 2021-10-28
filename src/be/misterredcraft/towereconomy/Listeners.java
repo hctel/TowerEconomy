@@ -14,10 +14,7 @@ public class Listeners implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) throws ClassNotFoundException, SQLException {
-		Player player = event.getPlayer();
-		UUID u = player.getUniqueId();
-		String uu = u.toString();
-		String uuid = uu.replace("-", "");
+		String uuid = e.getlayer().getUniqueId().toString().replace("-", "");
 		be.misterredcraft.towereconomy.Main.checkPlayerExisting(uuid);
 		}
 }
